@@ -1,9 +1,12 @@
 # CSE396 Unsupervised Learning Project Dependencies
-pandas>=2.2.0
+streamlit>=1.35.0
+plotly>=5.18.0
+pandas>=2.2.0,<3.0.0
 numpy>=1.26.0
 scikit-learn>=1.4.0
+scipy>=1.12.0
 matplotlib>=3.8.0
 seaborn>=0.13.0
 pytrends>=4.9.0
-notebook>=7.0.0
-
+fastapi>=0.110.0
+uvicorn>=0.28.0
