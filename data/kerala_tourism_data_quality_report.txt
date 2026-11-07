@@ -1,0 +1,26 @@
+KERALA TOURISM DATASET - QUALITY CHECK
+
+Destination rows in master dataset: 10
+Unique destinations: 10
+Accommodation listings counted: 852
+Google Trends long-format rows: 6283
+Google Trends date range: 2021-11-01 to 2026-11-01
+
+K-MEANS INPUT DATASET
+Rows: 10
+Numeric feature columns: 8
+Missing values in selected K-Means input columns: 0
+Selected K-Means features: Domestic_Visits_2022, Hotels, Homestays, Resorts, Serviced_Villas, Houseboats, Restaurants, Cafes
+
+MISSING-VALUE HANDLING
+- Missing 2025 destination visit values are retained as blank/NaN in the master dataset.
+- A blank means the destination was not listed in the supplied Top 20/Top 10 table; it does NOT mean zero visitors.
+- Google Trends values are summarised for description only, not used as cross-destination K-Means features.
+- District-level arrival figures are retained as context only, not used as destination-level K-Means features.
+- Statewide accommodation totals are not assigned to individual destinations.
+
+LIMITATIONS
+- Accommodation counts are counts of entries in supplied Kerala Tourism PDFs, not a verified census of all operating businesses.
+- Restaurant and cafe counts depend on the supplied source and collection method; verify source/date in the report.
+- Only 10 destination observations are available, so K-Means results will be exploratory and sensitive to feature choice.
+- Adventure business/activity counts were not available and are excluded from clustering.
