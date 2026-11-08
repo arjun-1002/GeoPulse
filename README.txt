@@ -8,7 +8,7 @@ Executive Analytics, Seasonality & Commercial Opportunity Screening Suite
    C:\Users\Harigovind\anaconda3\envs\kerala_tourism\python.exe app.py
 
    Then open your browser at:
-   http://127.0.0.1:5000
+   https://kerala-tourism-intelligence.onrender.com/
 
 2. DATA SOURCES & PIPELINE:
    - data/kerala_tourism_master_dataset_10_destinations.csv
