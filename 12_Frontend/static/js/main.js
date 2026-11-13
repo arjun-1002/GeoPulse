@@ -20,15 +20,30 @@ document.addEventListener("DOMContentLoaded", function () {
   initSearchAutocomplete();
 });
 
-function toggleSidebar(forceState) {
-  const sidebar = document.getElementById("appSidebar");
-  const backdrop = document.getElementById("sidebarBackdrop");
-  if (!sidebar || !backdrop) return;
-
-  const isOpen = typeof forceState === "boolean" ? forceState : !sidebar.classList.contains("open");
-  sidebar.classList.toggle("open", isOpen);
-  backdrop.classList.toggle("open", isOpen);
+function toggleMobileNav(forceState) {
+  const drawer = document.getElementById("mobileNavDrawer");
+  if (!drawer) return;
+  const isOpen = typeof forceState === "boolean" ? forceState : !drawer.classList.contains("open");
+  drawer.classList.toggle("open", isOpen);
 }
+
+function toggleSidebar(forceState) {
+  toggleMobileNav(forceState);
+}
+
+function toggleDropdown(event) {
+  if (event) event.stopPropagation();
+  const dropdown = document.getElementById("insightsDropdown");
+  if (!dropdown) return;
+  dropdown.classList.toggle("open");
+}
+
+document.addEventListener("click", function (e) {
+  const dropdown = document.getElementById("insightsDropdown");
+  if (dropdown && !dropdown.contains(e.target)) {
+    dropdown.classList.remove("open");
+  }
+});
 
 function initHeritageTicker() {
   const tickerEl = document.getElementById("heritage-ticker-text");
@@ -232,7 +247,7 @@ function updateSpotlightCard(data) {
   if (imgEl) imgEl.src = data.Photo_URL;
   if (titleEl) titleEl.innerText = data.Destination;
   if (locEl) locEl.innerText = `${data.District} District · ${data.Tagline}`;
-  if (clusterPill) clusterPill.innerText = `Cluster ${data.Cluster} · ${data.Cluster_Name}`;
+  if (clusterPill) clusterPill.innerText = `${data.Cluster_Name}`;
 
   const oppScore = Math.max(0, Math.min(100, Number(data.Opportunity_Score) || 0));
   if (scoreEl) scoreEl.innerText = `${oppScore}%`;

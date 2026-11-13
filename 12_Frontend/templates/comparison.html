@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="media-card-body">
-            <span class="spotlight-cluster-pill">Cluster {{ dest1.Cluster }} &middot; {{ dest1.Cluster_Name }}</span>
+            <span class="spotlight-cluster-pill">{{ dest1.Cluster_Name }}</span>
             <div style="font-size:0.83rem; color:var(--ink-2); line-height:1.65;">
                 <div><strong style="color:var(--ink);">Opportunity Category:</strong> {{ dest1.Opportunity_Category }}</div>
                 <div><strong style="color:var(--ink);">Suggested Venture:</strong> {{ dest1.Recommended_Business }}</div>
@@ -64,7 +64,7 @@
             </div>
         </div>
         <div class="media-card-body">
-            <span class="spotlight-cluster-pill">Cluster {{ dest2.Cluster }} &middot; {{ dest2.Cluster_Name }}</span>
+            <span class="spotlight-cluster-pill">{{ dest2.Cluster_Name }}</span>
             <div style="font-size:0.83rem; color:var(--ink-2); line-height:1.65;">
                 <div><strong style="color:var(--ink);">Opportunity Category:</strong> {{ dest2.Opportunity_Category }}</div>
                 <div><strong style="color:var(--ink);">Suggested Venture:</strong> {{ dest2.Recommended_Business }}</div>
@@ -103,7 +103,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>Cluster Segment</strong></td>
+                    <td><strong>Destination Category</strong></td>
                     <td class="num" style="text-align:right; color:var(--ink-2);">{{ dest1.Cluster_Name }}</td>
                     <td class="num" style="text-align:right; color:var(--ink-2);">{{ dest2.Cluster_Name }}</td>
                     <td class="num">&mdash;</td>
@@ -157,7 +157,7 @@
                     <td class="num">{{ "%+d"|format((dest1.Nearest_Airport_Distance_km_numeric - dest2.Nearest_Airport_Distance_km_numeric) | round(0) | int) }} km</td>
                 </tr>
                 <tr>
-                    <td><strong>Overall Gap Score</strong></td>
+                    <td><strong>New Business Opportunity Score</strong></td>
                     <td class="num">{{ "%+.1f"|format(dest1.Overall_Gap_Score) }}</td>
                     <td class="num">{{ "%+.1f"|format(dest2.Overall_Gap_Score) }}</td>
                     <td class="num">{{ "%+.1f"|format(dest1.Overall_Gap_Score - dest2.Overall_Gap_Score) }}</td>
@@ -170,10 +170,10 @@
 <!-- AUTOMATED INSIGHTS SYNTHESIS -->
 <div class="transit-box" style="padding:16px 20px;">
     <h4 style="color:var(--forest); font-size:0.95rem; font-weight:700; margin-bottom:6px;">Key Comparison Takeaways</h4>
-    <ul style="margin:0; padding-left:18px; font-size:0.84rem; color:var(--ink-2); line-height:1.65;">
+    <ul style="margin:0; padding-left:18px; font-size:0.88rem; color:var(--ink-2); line-height:1.65;">
         <li><strong style="color:var(--ink);">Footfall Volume:</strong> {% if dest1.Total_Visitors_2024 >= dest2.Total_Visitors_2024 %}{{ dest1.Destination }}{% else %}{{ dest2.Destination }}{% endif %} recorded higher total visits in 2024.</li>
         <li><strong style="color:var(--ink);">3-Year Trajectory:</strong> {% if dest1.Growth_2022_2024 >= dest2.Growth_2022_2024 %}{{ dest1.Destination }}{% else %}{{ dest2.Destination }}{% endif %} posted stronger growth between 2022 and 2024.</li>
-        <li><strong style="color:var(--ink);">Supply Gap Position:</strong> {% if dest1.Overall_Gap_Score >= dest2.Overall_Gap_Score %}{{ dest1.Destination }}{% else %}{{ dest2.Destination }}{% endif %} shows a higher cluster-relative infrastructure deficit score.</li>
+        <li><strong style="color:var(--ink);">Room for New Stays &amp; Dining:</strong> {% if dest1.Overall_Gap_Score >= dest2.Overall_Gap_Score %}{{ dest1.Destination }}{% else %}{{ dest2.Destination }}{% endif %} shows higher untapped market potential compared to other similar destinations.</li>
     </ul>
 </div>
 {% endblock %}

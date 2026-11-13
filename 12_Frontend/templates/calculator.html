@@ -26,7 +26,7 @@
                 <select id="calcDestination" onchange="onDestinationChange()" class="form-select">
                     {% for dest in destinations %}
                     <option value="{{ dest.Destination }}" {% if dest.Destination == default_dest_name %}selected{% endif %}>
-                        {{ dest.Destination }} ({{ dest.District }}) &middot; Cluster {{ dest.Cluster }}
+                        {{ dest.Destination }} ({{ dest.District }}) &middot; {{ dest.Landscape_Category }}
                     </option>
                     {% endfor %}
                 </select>
@@ -45,21 +45,21 @@
         <!-- DESTINATION DOSSIER BANNER -->
         <div class="context-banner">
             <div style="flex:1; min-width:250px;">
-                <h4 id="contextDestTitle" style="color:var(--ink); font-size:1rem; font-weight:700; margin-bottom:2px;">
+                <h4 id="contextDestTitle" style="color:var(--ink); font-size:1.08rem; font-weight:700; margin-bottom:3px;">
                     {{ default_dest.Destination }} ({{ default_dest.District }} District)
                 </h4>
-                <span id="contextDestCluster" style="font-size:0.79rem; color:var(--ink-2);">
-                    {{ default_dest.Cluster_Name }} &middot; 2024 Footfall: <strong class="tabular">{{ "{:,}".format(default_dest.Total_Visitors_2024) }}</strong>
+                <span id="contextDestCluster" style="font-size:0.86rem; color:var(--ink-2); font-weight:500;">
+                    {{ default_dest.Cluster_Name }} &middot; 2024 Footfall: <strong class="tabular" style="color:var(--ink);">{{ "{:,}".format(default_dest.Total_Visitors_2024) }}</strong>
                 </span>
-                <p id="contextDestRationale" style="font-size:0.76rem; color:var(--ink-2); margin:6px 0 0 0; line-height:1.45;">
+                <p id="contextDestRationale" style="font-size:0.88rem; color:var(--ink); margin:6px 0 0 0; line-height:1.6;">
                     {{ default_rec.rationale if default_rec else '' }}
                 </p>
             </div>
-            <div style="text-align:right; max-width:300px;">
-                <span style="font-size:0.72rem; color:var(--ink-3); text-transform:uppercase; font-weight:600;">Tailored Venture Fit</span><br>
-                <strong id="contextDestRec" style="color:var(--forest); font-size:0.88rem;">{{ default_rec.primary_concept if default_rec else default_dest.Recommended_Business }}</strong><br>
-                <span id="contextDestSec" style="font-size:0.73rem; color:var(--ink-3);">Secondary: {{ default_rec.secondary_label if default_rec else '' }}</span> &middot;
-                <span id="contextDestGrowth" class="tabular" style="font-size:0.76rem; color:var(--ink-2);">({{ "%+.1f"|format(default_dest.Growth_2022_2024) }}% growth)</span>
+            <div style="text-align:right; max-width:320px;">
+                <span style="font-size:0.78rem; color:var(--ink-2); text-transform:uppercase; font-weight:700; letter-spacing:0.04em;">Tailored Venture Fit</span><br>
+                <strong id="contextDestRec" style="color:var(--forest); font-size:0.96rem; font-weight:700;">{{ default_rec.primary_concept if default_rec else default_dest.Recommended_Business }}</strong><br>
+                <span id="contextDestSec" style="font-size:0.84rem; color:var(--ink-2);">Secondary: {{ default_rec.secondary_label if default_rec else '' }}</span> &middot;
+                <span id="contextDestGrowth" class="tabular" style="font-size:0.84rem; color:var(--ink); font-weight:600;">({{ "%+.1f"|format(default_dest.Growth_2022_2024) }}% growth)</span>
             </div>
         </div>
 

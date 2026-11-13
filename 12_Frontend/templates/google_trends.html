@@ -17,9 +17,9 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
         </div>
         <div class="kpi-text">
-            <p class="kpi-label">Cleaned Records</p>
+            <p class="kpi-label">Search Data Points</p>
             <h3 class="kpi-value">{{ "{:,}".format(overview.kpis.clean_records) }}</h3>
-            <p class="kpi-subtext">of {{ "{:,}".format(overview.kpis.raw_records) }} raw &middot; {{ overview.kpis.excluded_records }} unresolved excluded</p>
+            <p class="kpi-subtext">Verified traveler search data points across India</p>
         </div>
     </div>
 
@@ -50,8 +50,8 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         </div>
         <div class="kpi-text">
-            <p class="kpi-label">Audited Norm Groups</p>
-            <h3 class="kpi-value">{{ overview.kpis.verified_norm_hubs }} Hubs</h3>
+            <p class="kpi-label">Benchmark Corridors</p>
+            <h3 class="kpi-value">{{ overview.kpis.verified_norm_hubs }} Key Hubs</h3>
             <p class="kpi-subtext">Munnar, Thekkady, Vagamon, Wayanad</p>
         </div>
     </div>
@@ -59,8 +59,10 @@
 
 <!-- METHODOLOGY & NORMALIZATION GUARDRAIL -->
 <div class="disclaimer-box">
-    <strong>Google Trends Normalization Scope:</strong>
-    Scores (0–100) represent relative search interest scaled within individual Google Trends query batches across India, not absolute search counts. Only <strong>4 destinations</strong> (Munnar, Thekkady, Vagamon, and Wayanad) carry explicit <code>Normalization_Group</code> verification across all four categories. For the remaining 21 destinations, interpret scores for <strong>within-hub seasonality and category patterns</strong> rather than direct city-to-city magnitude rankings.
+    <strong>Understanding Search Trend Scores:</strong>
+    Scores (0–100) represent relative online search interest over time across India. 
+    Four major destinations (Munnar, Thekkady, Vagamon, and Wayanad) are calibrated together across stays, food, and sightseeing. 
+    For other destinations, use these graphs to examine seasonal high points and which activities attract the most traveler interest.
 </div>
 
 <!-- SECTION 1: INTERACTIVE DESTINATION SEARCH DEMAND EXPLORER -->
@@ -68,12 +70,12 @@
     <div class="panel-header" style="flex-wrap:wrap; border-bottom:1px solid var(--border); padding-bottom:14px; margin-bottom:14px;">
         <div>
             <h3 class="panel-title">Destination Intent Explorer &mdash; <span id="gt-active-dest-label">{{ selected_dest }}</span></h3>
-            <p style="font-size:0.79rem; color:var(--ink-3); margin-top:2px;">
+            <p style="font-size:0.86rem; color:var(--ink-2); margin-top:2px;">
                 Inspect monthly trajectories across all four tourism intent pillars and individual tracked keywords.
             </p>
         </div>
         <span id="gt-norm-badge" class="{% if initial_detail.norm_verified %}badge-emerald{% else %}badge-neutral{% endif %}">
-            {% if initial_detail.norm_verified %}Verified 4-Group Normalization{% else %}Independent Query Batch{% endif %}
+            {% if initial_detail.norm_verified %}Multi-Category Verified{% else %}Destination Search Trajectory{% endif %}
         </span>
     </div>
 

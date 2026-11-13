@@ -6,26 +6,26 @@ OPPORTUNITY_METADATA = {
     "High Gap + Positive Growth": {
         "badge_class": "badge-emerald",
         "color": "#154734",
-        "description": "Below-cluster hospitality supply combined with positive tourist footfall expansion. Strong structural case for targeted new capacity.",
-        "urgency": "Priority Expansion",
+        "description": "Rapidly rising traveler demand combined with limited local stays and dining. Outstanding potential to launch quality new hospitality ventures.",
+        "urgency": "Top Growth Opportunity",
     },
     "High Gap + Negative Growth": {
         "badge_class": "badge-amber",
         "color": "#b8922a",
-        "description": "Below-cluster supply paired with recent footfall contraction. Favor low-capex phased entry anchored to verified local demand.",
-        "urgency": "Selective Entry",
+        "description": "Underserved local market with steady or developing footfall. Ideal for boutique, low-overhead stays or unique dining concepts that build loyal repeat visitors.",
+        "urgency": "Boutique / Selective Entry",
     },
     "Low Gap + Positive Growth": {
         "badge_class": "badge-blue",
         "color": "#2b6cb0",
-        "description": "Growing visitor arrivals within an already well-supplied market. Favor quality upgrades, niche F&B, or differentiated positioning over bulk capacity.",
-        "urgency": "Niche Differentiation",
+        "description": "A popular, fast-growing destination with an established hospitality presence. Best suited for standout culinary spots, specialty cafes, or differentiated luxury stays.",
+        "urgency": "Premium & Niche Concepts",
     },
     "Low Gap + Negative Growth": {
         "badge_class": "badge-rose",
         "color": "#9f1239",
-        "description": "Abundant existing inventory alongside recent visitor contraction. Hold commodity builds and focus on experience repositioning or service upgrades.",
-        "urgency": "Hold & Reposition",
+        "description": "A mature, well-known destination with ample existing rooms. Rather than adding standard inventory, the focus is on upgrading guest experiences, eco-wellness, and heritage revitalization.",
+        "urgency": "Reposition & Experience Upgrade",
     },
 }
 
@@ -87,8 +87,8 @@ def get_opportunity_tag(category: str) -> Dict[str, Any]:
     return OPPORTUNITY_METADATA.get(category, {
         "badge_class": "badge-neutral",
         "color": "#5f6c64",
-        "description": "Standard monitoring.",
-        "urgency": "Neutral",
+        "description": "Standard market monitoring.",
+        "urgency": "Steady Market",
     })
 
 
@@ -146,7 +146,7 @@ def _select_primary_and_secondary(
     growth = float(row.get("Growth_2022_2024", 0.0) or 0.0)
     cafes = int(row.get("Cafes_Tea_Rooms", 0) or 0)
 
-    # Sort sectors by strongest cluster-peer deficit first (tie-breaking on zero recorded supply)
+    # Sort sectors by strongest deficit first (tie-breaking on zero recorded supply)
     ranked_sectors = sorted(
         sectors,
         key=lambda s: (s["cluster_gap"] + (15.0 if s["is_zero"] else 0.0)),
@@ -165,26 +165,26 @@ def _select_primary_and_secondary(
         else:
             primary_concept = CONCEPT_MAP.get((primary_sector, landscape), f"{primary_sector} Venture")
     else:
-        # Handle "No clear infrastructure gap" hubs constructively (Munnar, Alappuzha, Wayanad)
+        # Handle hubs with mature room supply constructively (Munnar, Alappuzha, Wayanad)
         primary_sector = lowest_rated_sector["key"] if lowest_rated_sector["rating"] <= 4.0 else "Restaurant"
         if growth > 0:
-            primary_concept = "Experiential Dining & Cafe Niche (Quality Upgrade)"
+            primary_concept = "Signature Experiential Dining & Artisan Cafe"
         else:
-            primary_concept = f"Capacity Hold: {lowest_rated_sector['label']} Quality Repositioning"
+            primary_concept = f"Premium Experience Repositioning: {lowest_rated_sector['label']}"
 
-    # Determine #2 concrete sector opportunity (excluding the chosen primary sector)
+    # Determine secondary concrete sector opportunity (excluding the chosen primary sector)
     sec_candidates = [s for s in ranked_sectors if s["key"] != primary_sector]
     sec = sec_candidates[0] if sec_candidates else ranked_sectors[0]
 
-    # Prefer highlighting zero-inventory sectors explicitly when present
+    # Prefer highlighting unserved sectors explicitly when present
     zero_others = [s for s in sec_candidates if s["is_zero"]]
     if zero_others:
         sec = zero_others[0]
-        secondary_label = f"{sec['label']} (0 recorded vs. {sec['cluster_mean']:.0f} peer avg)"
+        secondary_label = f"Unserved {sec['label']} (0 currently open vs. {sec['cluster_mean']:.0f} peer avg)"
     elif sec["cluster_gap"] > 0:
-        secondary_label = f"{sec['label']} ({sec['cluster_gap']:+.1f} below cluster avg)"
+        secondary_label = f"{sec['label']} expansion ({sec['cluster_gap']:+.1f} below peer avg)"
     else:
-        secondary_label = f"{sec['label']} differentiation (avg {sec['rating']:.1f}/5)"
+        secondary_label = f"Quality upgrade in {sec['label']} (current rating: {sec['rating']:.1f}/5)"
 
     return {
         "primary_sector": primary_sector,
@@ -202,7 +202,7 @@ def build_enriched_recommendation(
     cluster_means: Optional[Dict[str, float]] = None,
     trends_avg: Optional[Dict[str, float]] = None,
 ) -> Dict[str, Any]:
-    """Builds a multi-factor investment & concept recommendation from cluster gaps, ratings, trends, and transit."""
+    """Builds a multi-factor investment & concept recommendation from supply benchmarks, traveler ratings, trends, and transit."""
     dest = str(row.get("Destination", ""))
     district = str(row.get("District", ""))
     cluster = str(row.get("Cluster_Name", ""))
@@ -225,88 +225,87 @@ def build_enriched_recommendation(
     primary_sector = picks["primary_sector"]
     primary_spec = next((s for s in sectors if s["key"] == primary_sector), sectors[0])
 
-    # Build grounded rationale citing actual supply, cluster comparison, and growth
+    # Build grounded, humanized advisory rationale
     if picks["hold_capacity"]:
         rationale = (
-            f"{dest} already exceeds its {cluster} averages ({gap_score:+.1f} gap) while 2022–2024 footfall "
-            f"contracted ({growth:+.1f}%). Avoid commodity room builds and focus on {picks['primary_concept'].lower()} "
-            f"(existing {picks['lowest_rated']['label'].lower()} average {picks['lowest_rated']['rating']:.1f}/5)."
+            f"{dest} already has abundant hospitality options compared to similar getaways, while recent "
+            f"traveler traffic eased by {abs(growth):.1f}%. Rather than adding standard rooms, smart investors should "
+            f"focus on {picks['primary_concept'].lower()}, elevating guest experiences where local ratings currently average {picks['lowest_rated']['rating']:.1f}/5."
         )
     elif baseline not in VALID_VENTURE_PRESETS and growth > 0:
         rationale = (
-            f"{dest} combines mature baseline lodging ({primary_spec['count']} {primary_spec['label'].lower()}) with "
-            f"surging footfall ({growth:+.1f}% to {visitors_2024:,} visits). Entry favors differentiated F&B and experiential formats "
-            f"over standard lodging inventory, particularly with {picks['lowest_rated']['label'].lower()} rated {picks['lowest_rated']['rating']:.1f}/5."
+            f"{dest} already offers an established stay base ({primary_spec['count']} {primary_spec['label'].lower()}) "
+            f"alongside booming traveler arrivals ({growth:+.1f}% to {visitors_2024:,} visitors). New ventures will thrive "
+            f"by introducing distinctive dining, artisanal cafes, and curated experiences rather than basic lodging, especially with {picks['lowest_rated']['label'].lower()} averaging {picks['lowest_rated']['rating']:.1f}/5."
         )
     elif gap_score > 0 and growth > 0:
         rationale = (
-            f"{dest} posts a {gap_score:+.1f} cluster gap paired with {growth:+.1f}% 3-year visitor expansion. "
-            f"Leading priority is {picks['primary_concept']} ({primary_spec['count']} recorded vs. {primary_spec['cluster_mean']:.1f} "
-            f"peer average), backed by secondary headroom in {picks['secondary_label']}."
+            f"{dest} combines strong market room for new venues (+{gap_score:.1f} opportunity index) with {growth:+.1f}% "
+            f"visitor growth over the past 3 years. The standout opportunity is {picks['primary_concept']} ({primary_spec['count']} currently open vs. {primary_spec['cluster_mean']:.1f} "
+            f"average in similar locations), complemented by clear headroom in {picks['secondary_label']}."
         )
     elif gap_score > 0 and growth <= 0:
         rationale = (
-            f"{dest} shows below-peer infrastructure ({gap_score:+.1f} cluster gap) alongside a {growth:+.1f}% arrival dip. "
-            f"Prioritize low-capex {picks['primary_concept']} formats until local footfall recovers."
+            f"{dest} has significantly fewer stays and dining options than peer destinations (+{gap_score:.1f} opportunity index). "
+            f"With traveler traffic fluctuating ({growth:+.1f}%), operators should start with flexible, low-overhead {picks['primary_concept']} formats that sustainably build repeat visitors."
         )
     else:
         rationale = (
-            f"{dest} operates within a competitive {cluster} peer tier ({gap_score:+.1f} overall cluster score), yet "
-            f"positive {growth:+.1f}% demand creates selective openings in {picks['primary_concept']} "
-            f"and {picks['secondary_label']}."
+            f"{dest} is a vibrant and competitive destination within {cluster}. With strong traveler demand (+{growth:.1f}% growth), "
+            f"high-potential openings exist for standout concepts such as {picks['primary_concept']} and {picks['secondary_label']}."
         )
 
-    # Construct 3 concrete, data-backed action bullets
+    # Construct 3 concrete, data-backed human action bullets
     zero_list = [s["label"] for s in sectors if s["is_zero"]]
     if zero_list:
         bullet_format = (
-            f"Zero recorded inventory exists in {', '.join(zero_list)}; entering with {picks['primary_concept']} "
-            f"captures uncontested local category visibility."
+            f"No registered options currently exist in {', '.join(zero_list)}. Launching a thoughtfully designed {picks['primary_concept']} "
+            f"gives you uncontested first-mover advantage and immediate local recognition."
         )
     elif cafes == 0:
         bullet_format = (
-            f"Zero standalone cafes/tea rooms recorded alongside {attractions} mapped attractions — bundle "
-            f"specialty F&B or takeaway hospitality with core {primary_sector.lower()} service."
+            f"With {attractions} mapped tourist spots and zero dedicated cafes or tea lounges, pairing artisanal refreshments "
+            f"with your {primary_sector.lower()} will easily capture high daytime footfall."
         )
     else:
         bullet_format = (
-            f"Target {picks['primary_concept']} ({primary_spec['count']} recorded, rating {primary_spec['rating']:.1f}/5) "
-            f"and pair with {picks['secondary_label']}."
+            f"Establish a memorable {picks['primary_concept']} (currently {primary_spec['count']} local venues, rated {primary_spec['rating']:.1f}/5) "
+            f"and complement it with {picks['secondary_label']}."
         )
 
     bullet_quality = (
-        f"Benchmark service quality: lowest sector rating sits at {picks['lowest_rated']['rating']:.1f}/5 "
-        f"in {picks['lowest_rated']['label']}, leaving clear positioning room for high-hospitality operators."
+        f"Guest satisfaction benchmark: Local {picks['lowest_rated']['label'].lower()} currently average {picks['lowest_rated']['rating']:.1f}/5 "
+        f"in traveler reviews, leaving plenty of room for a high-service operator to stand out and command premium rates."
     )
 
     if trends_avg and trends_avg.get("Food & Dining", 0.0) == 0.0:
-        trends_note = "Google Trends food queries register below threshold (0.0 index) — visitors search the hub before dining brands."
+        trends_note = "Travelers search for the destination itself before specific dining brands, meaning great on-ground visibility and word-of-mouth will win visitors."
     elif trends_avg:
         top_t_pillar = max(trends_avg, key=lambda k: trends_avg[k])
-        trends_note = f"Search demand leads in {top_t_pillar} ({trends_avg[top_t_pillar]:.1f} mean index) across 2021–2026."
+        trends_note = f"Online traveler interest is strongest for {top_t_pillar.lower()} ({trends_avg[top_t_pillar]:.1f} relative search volume)."
     else:
-        trends_note = f"Airport access is {int(airport_km)} km away across {district} district road corridors."
+        trends_note = f"Conveniently accessible ({int(airport_km)} km from nearest airport) along key {district} travel routes."
 
     if "Contains estimates" in data_quality:
-        bullet_risk = f"Validation note: Footfall history carries provisional estimates; verify on-site seasonality. {trends_note}"
+        bullet_risk = f"Planning tip: Historical visitor figures include provisional regional estimates; confirm weekend traffic patterns on-site. {trends_note}"
     elif airport_km >= 90:
-        bullet_risk = f"Access profile: {int(airport_km)} km to nearest airport — design for weekend drive-in & regional stays. {trends_note}"
+        bullet_risk = f"Traveler profile: Located {int(airport_km)} km from the nearest airport — tailor your offering for road-trippers, scenic weekenders, and nature lovers. {trends_note}"
     else:
-        bullet_risk = f"Official visitor series verified ({visitors_2024:,} visits in 2024); {trends_note}"
+        bullet_risk = f"Verified traveler traffic ({visitors_2024:,} annual visitors in 2024). {trends_note}"
 
-    # Quick-scan risk / signal pills
+    # User-friendly quick-scan signal pills
     risk_flags = []
     if "Contains estimates" in data_quality:
-        risk_flags.append({"label": "Contains Footfall Estimates", "class": "badge-amber"})
+        risk_flags.append({"label": "Provisional Visitor Data", "class": "badge-amber"})
     else:
-        risk_flags.append({"label": "Official Footfall Records", "class": "badge-emerald"})
+        risk_flags.append({"label": "Verified Tourism Records", "class": "badge-emerald"})
 
     if zero_list:
-        risk_flags.append({"label": f"0 Recorded: {', '.join(zero_list)}", "class": "badge-blue"})
+        risk_flags.append({"label": f"Unserved: {', '.join(zero_list)}", "class": "badge-blue"})
     if picks["hold_capacity"]:
-        risk_flags.append({"label": "Negative 3-Yr Trend", "class": "badge-rose"})
+        risk_flags.append({"label": "Consolidating Footfall", "class": "badge-rose"})
     if picks["lowest_rated"]["rating"] <= 3.8:
-        risk_flags.append({"label": f"{picks['lowest_rated']['label']} Rating {picks['lowest_rated']['rating']:.1f}/5", "class": "badge-amber"})
+        risk_flags.append({"label": f"Quality Headroom: {picks['lowest_rated']['label']} ({picks['lowest_rated']['rating']:.1f}★)", "class": "badge-amber"})
     if airport_km >= 90:
         risk_flags.append({"label": f"{int(airport_km)} km to Airport", "class": "badge-neutral"})
 
