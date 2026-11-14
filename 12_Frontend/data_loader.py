@@ -37,7 +37,7 @@ DESTINATION_METADATA = {
         "category": "Hills",
         "tagline": "Pine Forests, Rolling Meadows & Paragliding Valleys",
         "image": "/static/images/destinations/vagamon.jpg",
-        "highlights": ["Asia's top paragliding corridor", "Kurisumala Ashram", "Untamed cool hill breezes"],
+        "highlights": ["Asia's top paragliding destination", "Kurisumala Ashram", "Untamed cool hill breezes"],
         "opportunity_score": 88
     },
     "Thekkady": {

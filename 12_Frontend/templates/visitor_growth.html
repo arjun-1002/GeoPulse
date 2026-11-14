@@ -3,10 +3,10 @@
 
 {% block content %}
 <div class="page-header">
-    <span class="page-eyebrow">Footfall Series (2022–2024)</span>
+    <span class="page-eyebrow">Traveler Trends (2022–2024)</span>
     <h1 class="page-title">Visitor Growth &amp; Segment Analysis</h1>
     <p class="page-lead">
-        Domestic and international tourist arrivals from 2022 through 2024 alongside destination-level data lineage notes.
+        Domestic and international tourist arrivals from 2022 through 2024 alongside source verification notes.
     </p>
 </div>
 
@@ -17,7 +17,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         </div>
         <div class="kpi-text">
-            <p class="kpi-label">2022 Footfall</p>
+            <p class="kpi-label">2022 Travelers</p>
             <h3 class="kpi-value">{{ (tot_2022 / 1000000) | round(2) }}M</h3>
             <p class="kpi-subtext">Baseline calendar year</p>
         </div>
@@ -27,7 +27,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         </div>
         <div class="kpi-text">
-            <p class="kpi-label">2023 Footfall</p>
+            <p class="kpi-label">2023 Travelers</p>
             <h3 class="kpi-value">{{ (tot_2023 / 1000000) | round(2) }}M</h3>
             <p class="kpi-subtext">+{{ ((tot_2023 - tot_2022) / tot_2022 * 100) | round(1) }}% vs. 2022</p>
         </div>
@@ -37,7 +37,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
         <div class="kpi-text">
-            <p class="kpi-label">2024 Footfall</p>
+            <p class="kpi-label">2024 Travelers</p>
             <h3 class="kpi-value">{{ (tot_2024 / 1000000) | round(2) }}M</h3>
             <p class="kpi-subtext">+{{ ((tot_2024 - tot_2023) / tot_2023 * 100) | round(1) }}% vs. 2023</p>
         </div>
@@ -81,10 +81,10 @@
     </div>
 </div>
 
-<!-- COMPLETE LINEAGE TABLE -->
+<!-- COMPLETE REGISTER TABLE -->
 <div class="table-container">
     <div class="table-container-header">
-        <h3 class="panel-title">Destination Footfall &amp; Data Quality Register</h3>
+        <h3 class="panel-title">Destination Arrivals &amp; Official Records Register</h3>
         <span class="panel-meta">Calendar Years 2022–2024</span>
     </div>
     <div class="table-scroll">
@@ -97,7 +97,7 @@
                     <th class="num">2023 Visits</th>
                     <th class="num">2024 Visits</th>
                     <th class="num">3-Yr Change</th>
-                    <th>Data Quality Flag</th>
+                    <th>Source Verification</th>
                 </tr>
             </thead>
             <tbody>

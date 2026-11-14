@@ -6,7 +6,7 @@
     <span class="page-eyebrow">Search Demand Intelligence ({{ overview.kpis.date_range }})</span>
     <h1 class="page-title">Google Trends Demand &amp; Seasonality Analysis</h1>
     <p class="page-lead">
-        Multi-intent search behavior across {{ overview.kpis.total_destinations }} Kerala tourism corridors, {{ overview.kpis.unique_terms }} search terms, and four demand pillars (India geography, {{ overview.kpis.months_count }} monthly windows).
+        Traveler search interest across {{ overview.kpis.total_destinations }} Kerala destinations, tracking {{ overview.kpis.unique_terms }} keywords across stays, dining, and activities across India.
     </p>
 </div>
 
@@ -50,7 +50,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         </div>
         <div class="kpi-text">
-            <p class="kpi-label">Benchmark Corridors</p>
+            <p class="kpi-label">Benchmark Destinations</p>
             <h3 class="kpi-value">{{ overview.kpis.verified_norm_hubs }} Key Hubs</h3>
             <p class="kpi-subtext">Munnar, Thekkady, Vagamon, Wayanad</p>
         </div>
@@ -82,7 +82,7 @@
     <!-- EXPLORER CONTROLS -->
     <div class="gt-controls-grid" style="margin-bottom:16px;">
         <div>
-            <label for="gt-dest-select" class="form-label">Destination Corridor</label>
+            <label for="gt-dest-select" class="form-label">Destination</label>
             <select id="gt-dest-select" class="form-select">
                 {% for d in all_destinations %}
                 <option value="{{ d }}" {% if d == selected_dest %}selected{% endif %}>{{ d }}</option>
@@ -161,7 +161,7 @@
             </div>
 
             <a id="gt-dossier-link" href="/destinations?highlight={{ selected_dest }}" class="btn-outline" style="width:100%;">
-                Open {{ selected_dest }} Infrastructure Dossier &#8594;
+                Explore {{ selected_dest }} Destination Guide &#8594;
             </a>
         </div>
     </div>
@@ -478,7 +478,7 @@
 
         if (dossierLink) {
             dossierLink.href = `/destinations?highlight=${encodeURIComponent(detail.destination)}`;
-            dossierLink.innerHTML = `Open ${escapeHtml(detail.destination)} Infrastructure Dossier &#8594;`;
+            dossierLink.innerHTML = `Explore ${escapeHtml(detail.destination)} Destination Guide &#8594;`;
         }
 
         const tbody = document.getElementById("gt-terms-tbody");

@@ -50,7 +50,7 @@
             <div style="font-size:0.83rem; color:var(--ink-2); line-height:1.65;">
                 <div><strong style="color:var(--ink);">Opportunity Category:</strong> {{ dest1.Opportunity_Category }}</div>
                 <div><strong style="color:var(--ink);">Suggested Venture:</strong> {{ dest1.Recommended_Business }}</div>
-                <div class="tabular"><strong style="color:var(--ink);">Infrastructure Gap:</strong> {{ "%+.1f"|format(dest1.Overall_Gap_Score) }}</div>
+                <div class="tabular"><strong style="color:var(--ink);">Opportunity Score:</strong> {{ "%+.1f"|format(dest1.Overall_Gap_Score) }}</div>
             </div>
         </div>
     </article>
@@ -68,7 +68,7 @@
             <div style="font-size:0.83rem; color:var(--ink-2); line-height:1.65;">
                 <div><strong style="color:var(--ink);">Opportunity Category:</strong> {{ dest2.Opportunity_Category }}</div>
                 <div><strong style="color:var(--ink);">Suggested Venture:</strong> {{ dest2.Recommended_Business }}</div>
-                <div class="tabular"><strong style="color:var(--ink);">Infrastructure Gap:</strong> {{ "%+.1f"|format(dest2.Overall_Gap_Score) }}</div>
+                <div class="tabular"><strong style="color:var(--ink);">Opportunity Score:</strong> {{ "%+.1f"|format(dest2.Overall_Gap_Score) }}</div>
             </div>
         </div>
     </article>
@@ -167,7 +167,7 @@
     </div>
 </div>
 
-<!-- AUTOMATED INSIGHTS SYNTHESIS -->
+<!-- KEY COMPARISON TAKEAWAYS -->
 <div class="transit-box" style="padding:16px 20px;">
     <h4 style="color:var(--forest); font-size:0.95rem; font-weight:700; margin-bottom:6px;">Key Comparison Takeaways</h4>
     <ul style="margin:0; padding-left:18px; font-size:0.88rem; color:var(--ink-2); line-height:1.65;">

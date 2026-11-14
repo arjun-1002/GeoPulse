@@ -3,10 +3,10 @@
 
 {% block content %}
 <div class="page-header">
-    <span class="page-eyebrow">Directory & Inventory</span>
+    <span class="page-eyebrow">Directory &amp; Overview</span>
     <h1 class="page-title">Explore Kerala Destinations</h1>
     <p class="page-lead">
-        Hospitality infrastructure counts, transit proximity, and 2022–2024 footfall across all 25 benchmark corridors.
+        Hospitality venue counts, transit access, and annual traveler arrivals across all 25 premier destinations.
     </p>
 </div>
 
@@ -51,17 +51,17 @@
     </form>
 </div>
 
-<!-- HIGHLIGHTED DOSSIER VIEW (IF SELECTED) -->
+<!-- HIGHLIGHTED DESTINATION GUIDE (IF SELECTED) -->
 {% if highlight_dest %}
 <div class="dossier-card">
     <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:14px; border-bottom:1px solid var(--border); padding-bottom:12px;">
         <div>
-            <span class="badge-emerald">Destination Dossier</span>
+            <span class="badge-emerald">Destination Guide</span>
             <h2 class="font-serif" style="font-size:1.55rem; font-weight:600; color:var(--ink); margin:4px 0 0 0;">
                 {{ highlight_dest.Destination }} &mdash; {{ highlight_dest.District }} District
             </h2>
         </div>
-        <a href="/destinations" class="btn-outline" style="padding:5px 12px; font-size:0.78rem;">Close Dossier</a>
+        <a href="/destinations" class="btn-outline" style="padding:6px 14px; font-size:0.84rem;">Close Guide</a>
     </div>
 
     <div class="dossier-split">
@@ -94,7 +94,7 @@
                 Simulate {{ highlight_rec.primary_sector if highlight_rec else 'Venture' }} Returns for {{ highlight_dest.Destination }} &#8594;
             </a>
             <a href="/opportunities?destination={{ highlight_dest.Destination }}" class="btn-outline" style="width:100%; margin-top:8px;">
-                Open Full Venture Brief &#8594;
+                Explore Venture Opportunities &#8594;
             </a>
             <a href="/google-trends?destination={{ highlight_dest.Destination }}" class="btn-outline" style="width:100%; margin-top:8px;">
                 Inspect Search Demand Trends &#8594;
@@ -124,7 +124,7 @@
             <div class="transit-box">
                 <div><strong>Railway Hub:</strong> {{ highlight_dest.Nearest_Railway_Station }} ({{ highlight_dest.Railway_Distance }})</div>
                 <div><strong>Nearest Airport:</strong> {{ highlight_dest.Nearest_Airport }} ({{ highlight_dest.Airport_Distance }})</div>
-                <div><strong>Highway Corridors:</strong> {{ highlight_dest.Main_Road_or_Highway }} &middot; {{ highlight_dest.Road_Accessibility }}</div>
+                <div><strong>Highway Connections:</strong> {{ highlight_dest.Main_Road_or_Highway }} &middot; {{ highlight_dest.Road_Accessibility }}</div>
             </div>
         </div>
     </div>
@@ -180,8 +180,8 @@
             </div>
 
             <div class="grid-2" style="gap:8px;">
-                <a href="/destinations?highlight={{ dest.Destination }}" class="btn-primary" style="padding:7px 10px; font-size:0.77rem;">View Dossier</a>
-                <a href="/calculator?destination={{ dest.Destination }}&venture={{ dest.Primary_Sector }}" class="btn-gold" style="padding:7px 10px; font-size:0.77rem;">Profitability</a>
+                <a href="/destinations?highlight={{ dest.Destination }}" class="btn-primary" style="padding:8px 12px; font-size:0.84rem;">View Guide</a>
+                <a href="/calculator?destination={{ dest.Destination }}&venture={{ dest.Primary_Sector }}" class="btn-gold" style="padding:8px 12px; font-size:0.84rem;">ROI Calculator</a>
             </div>
         </div>
     </article>

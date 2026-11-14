@@ -242,7 +242,7 @@ def build_enriched_recommendation(
         rationale = (
             f"{dest} combines strong market room for new venues (+{gap_score:.1f} opportunity index) with {growth:+.1f}% "
             f"visitor growth over the past 3 years. The standout opportunity is {picks['primary_concept']} ({primary_spec['count']} currently open vs. {primary_spec['cluster_mean']:.1f} "
-            f"average in similar locations), complemented by clear headroom in {picks['secondary_label']}."
+            f"average in similar locations), complemented by strong growth potential in {picks['secondary_label']}."
         )
     elif gap_score > 0 and growth <= 0:
         rationale = (
@@ -305,7 +305,7 @@ def build_enriched_recommendation(
     if picks["hold_capacity"]:
         risk_flags.append({"label": "Consolidating Footfall", "class": "badge-rose"})
     if picks["lowest_rated"]["rating"] <= 3.8:
-        risk_flags.append({"label": f"Quality Headroom: {picks['lowest_rated']['label']} ({picks['lowest_rated']['rating']:.1f}★)", "class": "badge-amber"})
+        risk_flags.append({"label": f"Quality Opportunity: {picks['lowest_rated']['label']} ({picks['lowest_rated']['rating']:.1f}★)", "class": "badge-amber"})
     if airport_km >= 90:
         risk_flags.append({"label": f"{int(airport_km)} km to Airport", "class": "badge-neutral"})
 

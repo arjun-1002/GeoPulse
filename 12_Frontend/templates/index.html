@@ -92,9 +92,9 @@
     </div>
 </div>
 
-<!-- 3-COLUMN CORE CORRIDOR -->
+<!-- 3-COLUMN OVERVIEW -->
 <div class="corridor-grid">
-    <!-- COLUMN 1: KERALA SIGNPOST ROSTER -->
+    <!-- COLUMN 1: DESTINATIONS ROSTER -->
     <div class="roster-card">
         <div class="roster-header">
             <h4>Destination Roster</h4>
@@ -183,7 +183,7 @@
             </ul>
 
             <a id="spotlight-explore-btn" href="/destinations?highlight={{ default_dest.Destination }}" class="spotlight-btn">
-                View Destination Dossier &#8594;
+                Explore Destination Details &#8594;
             </a>
         </div>
     </div>
@@ -251,7 +251,7 @@
 
 <!-- FEATURED DESTINATIONS GALLERY ROW -->
 <div>
-    <h2 class="section-heading">Featured Corridors</h2>
+    <h2 class="section-heading">Featured Destinations</h2>
     <div class="featured-grid">
         {% for feat in featured_destinations %}
         <article class="media-card">
@@ -272,7 +272,7 @@
                 </p>
                 <div class="media-card-footer">
                     <span class="tabular" style="font-size:0.74rem; color:var(--ink-3);">Stays: <strong style="color:var(--ink);">{{ feat.Hotels + feat.Resorts + feat.Homestays_Vacation_Rentals }}</strong></span>
-                    <a href="/destinations?highlight={{ feat.Destination }}" class="btn-outline" style="padding:5px 11px; font-size:0.75rem;">Open Dossier</a>
+                    <a href="/destinations?highlight={{ feat.Destination }}" class="btn-outline" style="padding:6px 12px; font-size:0.82rem;">Explore Destination</a>
                 </div>
             </div>
         </article>

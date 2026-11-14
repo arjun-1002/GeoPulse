@@ -53,7 +53,7 @@
         <div style="margin-top:14px; font-size:0.85rem; color:var(--ink); line-height:1.6;">
             <div><strong style="color:var(--forest);">Homestays (11):</strong> Prominent demand across scenic nature destinations.</div>
             <div><strong style="color:var(--gold-ink);">Restaurants (8):</strong> High visitor volume with limited dining options.</div>
-            <div><strong style="color:var(--blue);">Resorts (3):</strong> Experiential resort openings in select corridors.</div>
+            <div><strong style="color:var(--blue);">Resorts (3):</strong> Experiential resort openings in select destinations.</div>
         </div>
     </div>
 
@@ -68,12 +68,12 @@
     </div>
 </div>
 
-<!-- INTERACTIVE DESTINATION RECOMMENDATION PLAYBOOK -->
+<!-- INTERACTIVE DESTINATION RECOMMENDATIONS -->
 <div class="panel" id="rec-playbook-panel" style="margin-bottom:1.5rem;">
     <div class="panel-header" style="flex-wrap:wrap; border-bottom:1px solid var(--border); padding-bottom:12px; margin-bottom:14px;">
         <div>
             <span class="page-eyebrow" style="margin-bottom:2px;">Tailored Venture Advisory</span>
-            <h3 class="panel-title">Destination Business Recommendation Playbook &mdash; <span id="recDestTitle">{{ default_rec.destination }}</span></h3>
+            <h3 class="panel-title">Destination Venture Recommendations &mdash; <span id="recDestTitle">{{ default_rec.destination }}</span></h3>
             <p style="font-size:0.85rem; color:var(--ink-2); margin-top:2px;">
                 Custom venture concepts sized from traveler demand, visitor ratings, and underserved hospitality sectors.
             </p>
@@ -101,7 +101,7 @@
                 <span style="font-size:0.75rem; text-transform:uppercase; font-weight:700; color:var(--forest); letter-spacing:0.04em;">Primary Recommended Concept</span>
                 <h4 id="recPrimaryConcept" class="font-serif" style="font-size:1.35rem; color:var(--ink); margin:3px 0 4px 0; font-weight:700;">{{ default_rec.primary_concept }}</h4>
                 <p id="recSecondaryLine" style="font-size:0.88rem; color:var(--ink-2); margin:0;">
-                    <strong style="color:var(--ink);">Secondary Headroom:</strong> {{ default_rec.secondary_label }}
+                    <strong style="color:var(--ink);">Secondary Opportunity:</strong> {{ default_rec.secondary_label }}
                 </p>
             </div>
             <p id="recRationale" style="font-size:0.9rem; color:var(--ink); line-height:1.6; margin:0; padding-top:10px; border-top:1px solid #dde6da;">
@@ -177,7 +177,7 @@
                     <th class="num">Opportunity Score</th>
                     <th class="num">3-Yr Growth</th>
                     <th>Primary Recommended Concept</th>
-                    <th>Secondary Headroom</th>
+                    <th>Secondary Opportunity</th>
                     <th>Category</th>
                     <th></th>
                 </tr>
@@ -205,7 +205,7 @@
                         </span>
                     </td>
                     <td class="num">
-                        <button type="button" class="btn-outline" style="padding:6px 12px; font-size:0.8rem;" onclick="inspectRecommendation('{{ dest.Destination }}')">Brief</button>
+                        <button type="button" class="btn-outline" style="padding:6px 12px; font-size:0.8rem;" onclick="inspectRecommendation('{{ dest.Destination }}')">View Plan</button>
                     </td>
                 </tr>
                 {% endfor %}
@@ -297,7 +297,7 @@
 
         document.getElementById("recBaselineMeta").innerHTML = `Core Opportunity Fit: <strong style="color:var(--ink);">${escRec(rec.model_baseline)}</strong>`;
         document.getElementById("recPrimaryConcept").innerText = rec.primary_concept;
-        document.getElementById("recSecondaryLine").innerHTML = `<strong style="color:var(--ink);">Secondary Headroom:</strong> ${escRec(rec.secondary_label)}`;
+        document.getElementById("recSecondaryLine").innerHTML = `<strong style="color:var(--ink);">Secondary Opportunity:</strong> ${escRec(rec.secondary_label)}`;
         document.getElementById("recRationale").innerText = rec.rationale;
 
         document.getElementById("recFlags").innerHTML = (rec.risk_flags || [])
